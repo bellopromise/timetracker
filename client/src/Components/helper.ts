@@ -37,7 +37,6 @@ import { Break, WorkDay } from "./UserContext";
           for (let i = 0; i < sortedBreaks.length - 1; i++) {
             const currentBreakEndTime = sortedBreaks[i].checkOutTimestamp;
             const nextBreakStartTime = sortedBreaks[i + 1].checkInTimestamp;
-            console.log({time, currentBreakEndTime, nextBreakStartTime})
             if (currentBreakEndTime && time >= currentBreakEndTime && time < nextBreakStartTime) 
               return true; // Overlap found
           }
@@ -111,9 +110,8 @@ import { Break, WorkDay } from "./UserContext";
     export  const breakCheckOutValidation = (selectedBreakCheckInTime: string, selectedBreakCheckOutTime: string) => {
           let convertedSelectedBreakCheckOutTime: string = '';
           let errorMessage = '';
-          if(selectedBreakCheckOutTime){
+          if(selectedBreakCheckOutTime)
               convertedSelectedBreakCheckOutTime = convertToUTC(selectedBreakCheckOutTime);
-              console.log({selectedBreakCheckInTime, convertedSelectedBreakCheckOutTime})}
           if (selectedBreakCheckOutTime && convertedSelectedBreakCheckOutTime <= selectedBreakCheckInTime) 
               errorMessage = "Break check out time must be greater than when you checked in for break";
           return { errorMessage, status: convertedSelectedBreakCheckOutTime && !errorMessage };
