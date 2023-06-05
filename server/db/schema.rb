@@ -10,5 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_05_034357) do
+  create_table "breaks", force: :cascade do |t|
+    t.integer "work_day_id", null: false
+    t.datetime "check_in_timestamp"
+    t.datetime "check_out_timestamp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["work_day_id"], name: "index_breaks_on_work_day_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "username"
+    t.string "password_digest"
+  end
+
+  create_table "work_days", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "check_in_timestamp"
+    t.datetime "check_out_timestamp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_work_days_on_user_id"
+  end
+
+  add_foreign_key "breaks", "work_days"
+  add_foreign_key "work_days", "users"
 end
