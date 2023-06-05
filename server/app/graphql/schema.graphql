@@ -1,0 +1,53 @@
+type Query {
+  workDays(userId: ID!): [WorkDayType]
+  user(id: ID!): UserType
+}
+
+type Mutation {
+  createWorkDay(userId: ID!, workDay: WorkDayInput!): WorkDayType
+  updateWorkDay(userId: ID!, inputDate: String!, workDay: UpdateWorkDayInput!): WorkDayType
+  deleteWorkDay(id: ID!): ID
+  createUser(name: String!): UserType
+}
+
+type WorkDayType {
+  id: ID!
+  checkInTimestamp: String!
+  checkOutTimestamp: String!
+}
+
+type WorkDay{
+  id: ID!
+  checkInTimestamp: String!
+  checkOutTimestamp: String!
+  breaks: [Break!]!
+}
+
+input WorkDayInput {
+  checkInTimestamp: String!
+}
+
+type UserType {
+  id: ID!
+  name: String!
+  username: String!
+  workDays: [WorkDay!]!
+}
+
+input UpdateWorkDayInput {
+  checkOutTimestamp: String
+}
+
+input BreakInput {
+  checkInTimestamp: String!
+}
+
+input UpdateBreakInput {
+    checkOutTimestamp: String!
+}
+
+type BreakType {
+    id: ID!
+  checkInTimestamp: String!
+  checkOutTimestamp: String!
+}
